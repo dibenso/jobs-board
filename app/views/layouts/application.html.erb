@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JobsBoard</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="links">
+		<%= link_to 'Jobs', jobs_path %>
+		<%= link_to 'New Job', new_job_path %>
+	</div>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  min_wage: 1.5
+  max_wage: 1.5
+  time: MyString
+  location: MyString
+
+two:
+  name: MyString
+  min_wage: 1.5
+  max_wage: 1.5
+  time: MyString
+  location: MyString
