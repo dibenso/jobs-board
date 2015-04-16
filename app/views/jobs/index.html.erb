@@ -32,4 +32,6 @@
 
 <br>
 
-<%= link_to 'New Job', new_job_path %>
+<% if employer_signed_in? %>
+  <%= link_to 'New Job', new_job_path %>
+<% end %>
