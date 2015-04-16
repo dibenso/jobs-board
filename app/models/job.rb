@@ -4,4 +4,7 @@ class Job < ActiveRecord::Base
 
 	validates :description, length: { in: 32..4096 }
 	validates :time, inclusion: { in: %w(Part Full Contract Seasonal) }
+
+	has_many :employments
+	has_many :users, through: :employments
 end
