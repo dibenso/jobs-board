@@ -13,6 +13,9 @@ class JobsController < ApplicationController
   def show
   end
 
+  def show_employer_jobs
+  end
+
   # GET /jobs/new
   def new
     @job = Job.new

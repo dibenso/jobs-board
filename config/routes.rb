@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'employers/index'
+
   devise_for :employers, controllers: {
     registrations: 'employers/registrations'
   }
@@ -6,7 +8,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+
   resources :jobs
+
+  resources :employers, only: [:index]
 
   root to: 'jobs#index'
   # The priority is based upon order of creation: first created -> highest priority.
