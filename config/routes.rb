@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   }
 
   resources :jobs do
-    post 'apply'
+    resources :job_applications, except: [:index, :edit, :update, :show]
   end
 
   resources :employers, only: [:index]

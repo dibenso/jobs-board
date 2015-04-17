@@ -65,18 +65,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # POST /jobs/:job_id/apply
-  def apply
-    @job = Job.find(params[:job_id])
-    current_user.jobs << @job
-    if current_user.save
-      flash[:notice] = "Applied to job."
-      redirect_to root_path
-    else
-      render "show"
-    end
-  end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_job

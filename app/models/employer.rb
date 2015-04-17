@@ -9,4 +9,5 @@ class Employer < ActiveRecord::Base
   validates :username, presence: true
 
   has_many :jobs
+  has_many :applications
 end
