@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :username, uniqueness: true
+  validates :username, length: { in: 6..32 }
+
   has_many :employments
   has_many :jobs, through: :employments
 end

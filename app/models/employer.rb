@@ -4,5 +4,8 @@ class Employer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :username, uniqueness: true
+  validates :username, length: { in: 6..32 }
+
   has_many :jobs
 end
