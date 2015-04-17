@@ -13,9 +13,6 @@ class JobsController < ApplicationController
   def show
   end
 
-  def show_employer_jobs
-  end
-
   # GET /jobs/new
   def new
     @job = Job.new
@@ -32,6 +29,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
+        current_employer.jobs << @job
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
@@ -73,6 +71,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location)
+      params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location, :description, :company)
     end
 end
