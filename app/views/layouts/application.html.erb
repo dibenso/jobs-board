@@ -10,6 +10,7 @@
 	<div class="links">
 		<%= link_to 'Jobs', jobs_path %>
 		<% if user_signed_in? %>
+      <%= link_to 'Your Jobs', users_path %>
 			<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
 		<% elsif employer_signed_in? %>
 			<%= link_to 'New Job', new_job_path %>
@@ -24,7 +25,7 @@
 	</div>
 
 	<p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <p class="alert"><%= alert %></p>
 
 <%= yield %>
 

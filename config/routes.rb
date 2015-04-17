@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/index'
+
   get 'employers/index'
 
   devise_for :employers, controllers: {
@@ -12,6 +14,8 @@ Rails.application.routes.draw do
   resources :jobs
 
   resources :employers, only: [:index]
+
+  resources :users, only: [:index]
 
   root to: 'jobs#index'
   # The priority is based upon order of creation: first created -> highest priority.
