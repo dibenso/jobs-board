@@ -23,5 +23,16 @@
   <%= @job.location %>
 </p>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
+<% if employer_signed_in? %>
+  <% if current_employer.jobs.exists?(@job.id) %>
+    <%= link_to 'Edit', edit_job_path(@job) %> |
+  <% end %>
+<% end %>
+
 <%= link_to 'Back', jobs_path %>
+
+<% if user_signed_in? %>
+  <% unless current_user.jobs.exists?(@job.id) %>
+    <%= link_to 'Apply', job_apply_path(@job), method: 'post' %>
+  <% end %>
+<% end %>

@@ -7,6 +7,10 @@
   <td><%= job.location %></td>
   <td><%= job.description %></td>
   <td><%= link_to 'Show', job %></td>
-  <td><%= link_to 'Edit', edit_job_path(job) %></td>
-  <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% if employer_signed_in? %>
+    <% if current_employer.jobs.exists?(job.id) %>
+      <td><%= link_to 'Edit', edit_job_path(job) %></td>
+      <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  <% end %>
 </tr>

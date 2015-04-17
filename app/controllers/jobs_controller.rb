@@ -1,6 +1,8 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_employer!, except: [:index, :show]
+  before_action :ensure_owner_of_job, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:apply]
 
   # GET /jobs
   # GET /jobs.json
@@ -63,14 +65,32 @@ class JobsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job
-      @job = Job.find(params[:id])
+  # POST /jobs/:job_id/apply
+  def apply
+    @job = Job.find(params[:job_id])
+    current_user.jobs << @job
+    if current_user.save
+      flash[:notice] = "Applied to job."
+      redirect_to root_path
+    else
+      render "show"
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def job_params
-      params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location, :description, :company)
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_job
+    @job = Job.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def job_params
+    params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location, :description, :company)
+  end
+
+  def ensure_owner_of_job
+    unless @job.employer.id == current_employer.id
+      redirect_to root_path
     end
+  end
 end

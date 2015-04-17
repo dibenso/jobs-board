@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :jobs
+  resources :jobs do
+    post 'apply'
+  end
 
   resources :employers, only: [:index]
 
