@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   validates :username, uniqueness: true
   validates :username, length: { in: 6..32 }
+  validates :username, presence: true
 
   has_many :employments
   has_many :jobs, through: :employments

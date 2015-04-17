@@ -6,6 +6,7 @@ class Employer < ActiveRecord::Base
 
   validates :username, uniqueness: true
   validates :username, length: { in: 6..32 }
+  validates :username, presence: true
 
   has_many :jobs
 end
