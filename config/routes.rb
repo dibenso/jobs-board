@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :employers
+  devise_for :employers, controllers: {
+    registrations: 'employers/registrations'
+  }
   devise_for :admins
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   resources :jobs
 
   root to: 'jobs#index'
