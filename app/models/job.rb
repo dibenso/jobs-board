@@ -9,5 +9,5 @@ class Job < ActiveRecord::Base
 
 	has_many :employments
 	has_many :users, through: :employments
-  has_many :applications
+  has_many :job_applications
 end

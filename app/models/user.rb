@@ -10,5 +10,5 @@ class User < ActiveRecord::Base
 
   has_many :employments
   has_many :jobs, through: :employments
-  has_many :applications
+  has_many :job_applications
 end

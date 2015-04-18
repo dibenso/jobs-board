@@ -5,6 +5,7 @@ class JobApplicationsController < ApplicationController
 
   def new
     @job = Job.find(params[:job_id])
+    ensure_user_has_not_already_applied(@job.id)
     unless @job
       flash[:notice] = "Please use the links provided."
       redirect_to root_path
@@ -15,7 +16,9 @@ class JobApplicationsController < ApplicationController
   def create
     @job_application = JobApplication.new(job_application_params)
     @job = Job.find(params[:job_id])
+    ensure_user_has_not_already_applied(@job.id)
     if @job.employer.jobs.exists?(@job.id)
+      current_user.jobs << @job
       @job_application.job = @job
       @job_application.user = current_user
       @job_application.employer = @job.employer
@@ -43,6 +46,12 @@ class JobApplicationsController < ApplicationController
   end
 
   private
+    def ensure_user_has_not_already_applied(job_id)
+      if current_user.jobs.exists?(job_id)
+        flash[:notice] = "You have already applied to this job."
+        redirect_to root_path
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_job_application
       @job_application = JobApplication.find(params[:id])

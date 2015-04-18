@@ -12,6 +12,8 @@ user = User.create(email: 'dillboy928@gmail.com', password: '<abc123>', username
 user.save
 job = Job.create(name: 'Ruby Developer', min_wage: 70_000.00, max_wage: 90_000.00, time: 'Full', location: 'New York, NY', description: 'Help expand and maintain our wonderful cloud platform using your Ruby and Rails expertise.', company: 'dibensio.io')
 job.save
+job2 = Job.create(name: 'Front End Developer', min_wage: 50_000.00, max_wage: 60_000.00, time: 'Full', location: 'New York, NY', description: 'Help expand and maintain the front end of our amazing cloud platform using your HTML, CSS, and javascripts skills', company: 'dibensio.io')
+job2.save
 
 employer.jobs << job
-user.jobs << job
+employer.jobs << job2
