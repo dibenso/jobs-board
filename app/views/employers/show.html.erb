@@ -1,0 +1,18 @@
+<p>
+  <strong>First name:</strong>
+  <%= @job_application.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @job_application.last_name %>
+</p>
+
+<p>
+  <strong>Cover letter</strong>
+  <%= @job_application.cover_letter %>
+</p>
+
+<!-- Need to add a link to delete job application --> | 
+
+<%= link_to 'Back', employer_job_applications_path %>

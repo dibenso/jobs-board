@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     resources :job_applications, except: [:index, :edit, :update, :show]
   end
 
-  resources :employers, only: [:index]
+  resources :employers, only: [:index] do
+    get 'job_applications'
+    get 'job_applications/:id/show' => 'employers#show'
+  end
 
   resources :users, only: [:index]
 

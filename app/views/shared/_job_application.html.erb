@@ -1,0 +1,16 @@
+<tr>
+  <td><%= job_application.first_name %></td>
+  <td><%= job_application.last_name %></td>
+  <td><%= job_application.cover_letter %></td>
+  <% if employer_signed_in? %>
+    <% if current_employer.job_applications.exists?(job_application.id) %>
+      <td><%= link_to 'Show', controller: :employers, action: :show, id: job_application.id %></td>
+      <!-- Need to add link to delete job application -->
+    <% end %>
+  <% end %>
+  <% if user_signed_in? %>
+    <% if current_user.job_applications.exists?(job_application.id) %>
+      <td><%= link_to 'Show', controller: :users, action: :show, id: job_application.id %></td>
+    <% end %>
+  <% end %>
+</tr>

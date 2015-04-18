@@ -1,0 +1,18 @@
+<h1>Listing Job Applications</h1>
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Cover Letter</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "shared/job_application", collection: @job_applications %>
+  <tbody>
+<table>
+
+<br>
+
+<%= link_to 'New Job', new_job_path %>

@@ -15,6 +15,7 @@
 		<% elsif employer_signed_in? %>
 			<%= link_to 'New Job', new_job_path %>
       <%= link_to 'My Jobs', employers_path %>
+      <%= link_to 'View Applications', controller: :employers, action: :job_applications, employer_id: current_employer.id %>
 			<%= link_to 'Sign Out', destroy_employer_session_path, method: :delete %>
 		<% else %>
 			<%= link_to 'Sign up', new_user_registration_path %>

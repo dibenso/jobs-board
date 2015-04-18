@@ -38,7 +38,8 @@ class JobApplicationsController < ApplicationController
   end
 
   def destroy
-    @job_application.destroy
+    redirect_to root_path unless current_employer.job_applications.exists?(@job_application.id)
+    current_employer.job_applications.delete(@job_application.id)
     respond_to do |format|
       format.html { redirect_to job_applications_url, notice: 'Job application was successfully destroyed.' }
       format.json { head :no_content }
