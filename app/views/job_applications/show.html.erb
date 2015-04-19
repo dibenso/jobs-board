@@ -1,21 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Job:</strong>
-  <%= @job_application.job_id %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @job_application.user_id %>
-</p>
-
-<p>
-  <strong>Employer:</strong>
-  <%= @job_application.employer_id %>
-</p>
-
-<p>
   <strong>First name:</strong>
   <%= @job_application.first_name %>
 </p>
@@ -30,5 +15,11 @@
   <%= @job_application.cover_letter %>
 </p>
 
-<%= link_to 'Edit', edit_job_application_path(@job_application) %> |
+<% if employer_signed_in? %>
+    <% if current_employer.job_applications.exists?(@job_application.id) %>
+      <td><%= link_to 'Destroy', @job_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  <% end %>
+
+ |
 <%= link_to 'Back', job_applications_path %>

@@ -5,9 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Job</th>
-      <th>User</th>
-      <th>Employer</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Cover letter</th>
@@ -16,22 +13,8 @@
   </thead>
 
   <tbody>
-    <% @job_applications.each do |job_application| %>
-      <tr>
-        <td><%= job_application.job_id %></td>
-        <td><%= job_application.user_id %></td>
-        <td><%= job_application.employer_id %></td>
-        <td><%= job_application.first_name %></td>
-        <td><%= job_application.last_name %></td>
-        <td><%= job_application.cover_letter %></td>
-        <td><%= link_to 'Show', job_application %></td>
-        <td><%= link_to 'Edit', edit_job_application_path(job_application) %></td>
-        <td><%= link_to 'Destroy', job_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%= render partial: 'shared/job_application', collection: @job_applications %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Job application', new_job_application_path %>

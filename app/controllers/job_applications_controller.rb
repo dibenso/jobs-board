@@ -2,6 +2,23 @@ class JobApplicationsController < ApplicationController
   before_action :set_job_application, only: [:destroy]
   before_action :authenticate_user!, only: [:new, :create]
   before_action :authenticate_employer!, only: [:destroy]
+  before_action :authenticate_user_or_employer!, only: [:show, :index]
+
+  def index
+    if user_signed_in?
+      @job_applications = current_user.job_applications
+    else
+      @job_applications = current_employer.job_applications
+    end
+  end
+
+  def show
+    if user_signed_in?
+      @job_application = current_user.job_applications.find(params[:id])
+    else
+      @job_application = current_employer.job_applications.find(params[:id])
+    end
+  end
 
   def new
     @job = Job.find(params[:job_id])
@@ -18,7 +35,6 @@ class JobApplicationsController < ApplicationController
     @job = Job.find(params[:job_id])
     ensure_user_has_not_already_applied(@job.id)
     if @job.employer.jobs.exists?(@job.id)
-      current_user.jobs << @job
       @job_application.job = @job
       @job_application.user = current_user
       @job_application.employer = @job.employer
@@ -47,6 +63,12 @@ class JobApplicationsController < ApplicationController
   end
 
   private
+    def authenticate_user_or_employer!
+      unless user_signed_in? || employer_signed_in?
+        redirect_to root_path, notice: 'Please Sign In.'
+      end
+    end
+
     def ensure_user_has_not_already_applied(job_id)
       if current_user.jobs.exists?(job_id)
         flash[:notice] = "You have already applied to this job."

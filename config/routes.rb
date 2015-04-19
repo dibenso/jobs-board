@@ -11,14 +11,14 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :jobs do
-    resources :job_applications, except: [:index, :edit, :update, :show]
-  end
+  resources :jobs
 
-  resources :employers, only: [:index] do
-    get 'job_applications'
-    get 'job_applications/:id/show' => 'employers#show'
-  end
+  resources :job_applications, only: [:index, :show, :destroy]
+  
+  post 'job_applications/:job_id/create' => 'job_applications#create'
+  get 'job_applications/:job_id/new' => 'job_applications#new'
+
+  resources :employers, only: [:index]
 
   resources :users, only: [:index]
 
