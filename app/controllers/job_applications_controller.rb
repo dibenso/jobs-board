@@ -35,6 +35,7 @@ class JobApplicationsController < ApplicationController
     @job = Job.find(params[:job_id])
     ensure_user_has_not_already_applied(@job.id)
     if @job.employer.jobs.exists?(@job.id)
+      current_user.jobs << @job
       @job_application.job = @job
       @job_application.user = current_user
       @job_application.employer = @job.employer
@@ -82,6 +83,6 @@ class JobApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_application_params
-      params.require(:job_application).permit(:first_name, :last_name, :cover_letter)
+      params.require(:job_application).permit(:first_name, :last_name, :cover_letter, :phone_number)
     end
 end
