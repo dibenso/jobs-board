@@ -35,6 +35,7 @@ class JobApplicationsController < ApplicationController
     @job = Job.find(params[:job_id])
     ensure_user_has_not_already_applied(@job.id)
     if @job.employer.jobs.exists?(@job.id)
+      @job.apply_count += 1
       current_user.jobs << @job
       @job_application.job = @job
       @job_application.user = current_user
@@ -44,7 +45,7 @@ class JobApplicationsController < ApplicationController
     end
 
     respond_to do |format|
-      if @job_application.save
+      if @job_application.save && @job.save
         format.html { redirect_to root_path, notice: 'Job application was successfully created.' }
         format.json { render :show, status: :created, location: @job_application }
       else
