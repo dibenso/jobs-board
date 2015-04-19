@@ -36,6 +36,10 @@
     <%= f.text_field :company %>
   </div>
   <div class="field">
+    <%= f.label :job_category %><br>
+    <%= select_tag 'job[job_category]', options_for_select(@job.job_categories) %>
+  </div>
+  <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description, size: '30x5' %>
   </div>

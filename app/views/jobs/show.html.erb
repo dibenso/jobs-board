@@ -23,6 +23,16 @@
   <%= @job.location %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= @job.job_category %>
+</p>
+
+<p>
+  <strong>Application Count:</strong>
+  <%= @job.apply_count %>
+</p>
+
 <% if employer_signed_in? %>
   <% if current_employer.jobs.exists?(@job.id) %>
     <%= link_to 'Edit', edit_job_path(@job) %> |
