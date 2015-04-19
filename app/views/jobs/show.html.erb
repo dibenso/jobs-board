@@ -33,6 +33,6 @@
 
 <% if user_signed_in? %>
   <% unless current_user.jobs.exists?(@job.id) %>
-    <%= link_to 'Apply', new_job_job_application_path(@job) %>
+    <%= link_to 'Apply', controller: :job_applications, action: :new, job_id: @job.id %>
   <% end %>
 <% end %>
