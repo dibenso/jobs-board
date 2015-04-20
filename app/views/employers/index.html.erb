@@ -55,6 +55,9 @@
   <%= form_tag(employers_join_company_path) %>
   <%= text_field_tag('company_key') %><br>
   <%= submit_tag('Join') %><br>
+<% else %>
+  <h2>Company Key:</h2>
+  <p><%= current_employer.company.company_key %></p>
 <% end %>
 
 <%= link_to 'New Job', new_job_path %>
