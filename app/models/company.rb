@@ -10,6 +10,7 @@ class Company < ActiveRecord::Base
 
   has_many :jobs
   has_many :employers
+  has_many :reviews
 
   private
 

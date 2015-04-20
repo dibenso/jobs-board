@@ -1,0 +1,8 @@
+<% @companies.each do |company| %>
+  <h2><%= link_to company.name, company_path(company) %></h2>
+  <!-- Fix below link -->
+  <p><%= link_to "#{company.jobs.count} jobs", "/companies/#{company.id}/jobs" %></p>
+  <% if company.url %>
+    <p>Visit <%= link_to "#{company.name} website", company.url %></p>
+  <% end %>
+<% end %>

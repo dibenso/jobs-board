@@ -1,0 +1,8 @@
+<h2><%= @company.name %></h2>
+<p><%= link_to "#{@company.jobs.count} jobs", company_jobs_path, id: @company.id %></p>
+<% if @company.url %>
+  <small>Visit <%= link_to "#{@company.name} website", @company.url %></small>
+<% end %>
+
+<h3>Reviews</h3>
+<%= render partial: 'shared/review', collection: @company.reviews %>

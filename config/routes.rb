@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'companies/index'
+
+  get 'companies/show'
+
   get 'users/index'
 
   get 'employers/index'
@@ -26,6 +30,12 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 
   root to: 'jobs#index'
+
+  get 'companies' => 'companies#index'
+  get 'companies/:id/jobs', to: 'companies#jobs', as: 'company_jobs'
+  resources :companies, only: [:show] do
+    resources :reviews, except: [:show]
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

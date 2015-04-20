@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   has_many :employments
   has_many :jobs, through: :employments
   has_many :job_applications
+  has_many :reviews
 end
