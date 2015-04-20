@@ -32,10 +32,6 @@
     <%= f.text_field :location %>
   </div>
   <div class="field">
-    <%= f.label :company %><br>
-    <%= f.text_field :company %>
-  </div>
-  <div class="field">
     <%= f.label :job_category %><br>
     <%= select_tag 'job[job_category]', options_for_select(@job.job_categories) %>
   </div>

@@ -3,6 +3,7 @@ class JobsController < ApplicationController
   before_action :authenticate_employer!, except: [:index, :show]
   before_action :ensure_owner_of_job, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:apply]
+  before_action :ensure_employer_belongs_to_company, only: [:new, :create]
 
   # GET /jobs
   # GET /jobs.json
@@ -28,10 +29,12 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
+    @job.company = current_employer.company
 
     respond_to do |format|
       if @job.save
         current_employer.jobs << @job
+        current_employer.company.jobs << @job
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
@@ -73,12 +76,19 @@ class JobsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def job_params
-    params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location, :description, :company, :job_category)
+    params.require(:job).permit(:name, :min_wage, :max_wage, :time, :location, :description, :job_category)
   end
 
   def ensure_owner_of_job
     unless @job.employer.id == current_employer.id
       redirect_to root_path
+    end
+  end
+
+  def ensure_employer_belongs_to_company
+    unless current_employer.company
+      flash[:notice] = "Join or create a company before creating new jobs."
+      redirect_to employers_path
     end
   end
 end

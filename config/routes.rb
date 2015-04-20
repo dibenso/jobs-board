@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   resources :employers, only: [:index]
 
+  post 'employers/join_company' => 'employers#join_company'
+  post 'employers/add_company' => 'employers#add_company'
+
   resources :users, only: [:index]
 
   root to: 'jobs#index'

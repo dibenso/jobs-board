@@ -14,6 +14,7 @@ class Job < ActiveRecord::Base
 	has_many :employments
 	has_many :users, through: :employments
   has_many :job_applications
+  belongs_to :company
 
   def job_categories
     ["Accountant", "Actor", "Administrative Assistant / Secretary",

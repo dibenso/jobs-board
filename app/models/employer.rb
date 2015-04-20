@@ -10,4 +10,5 @@ class Employer < ActiveRecord::Base
 
   has_many :jobs
   has_many :job_applications
+  belongs_to :company
 end

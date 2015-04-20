@@ -23,5 +23,38 @@
 
 <br>
 
+<% unless current_employer.company %>
+  <h2>Add company</h2>
+  <%= form_for @company, url: employers_add_company_path do |f| %>
+    <% if @company.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+        <ul>
+        <% @companye.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :url %><br>
+      <%= f.text_field :url %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  <h2>Or</h2><br>
+  <h2>Join Company</h2>
+  <%= form_tag(employers_join_company_path) %>
+  <%= text_field_tag('company_key') %><br>
+  <%= submit_tag('Join') %><br>
+<% end %>
 
 <%= link_to 'New Job', new_job_path %>
