@@ -1,8 +1,16 @@
 <h2><%= @company.name %></h2>
-<p><%= link_to "#{@company.jobs.count} jobs", company_jobs_path, id: @company.id %></p>
 <% if @company.url %>
   <small>Visit <%= link_to "#{@company.name} website", @company.url %></small>
 <% end %>
+<p><%= link_to pluralize(@company.jobs.count, "job"), company_jobs_path, id: @company.id %></p>
+<p><%= link_to pluralize(@company.reviews.count, "review"), company_path(@company, anchor: 'reviews') %></p>
 
-<h3>Reviews</h3>
+<h3 id="reviews">Reviews</h3>
 <%= render partial: 'shared/review', collection: @company.reviews %>
+
+<% if user_signed_in? %>
+  <% unless already_reviewed?(@company.id) %>
+    <h4>Write a review</h4>
+    <%= render 'shared/review_form' %>
+  <% end %>
+<% end %>

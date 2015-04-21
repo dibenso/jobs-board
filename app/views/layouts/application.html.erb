@@ -12,6 +12,7 @@
     <%= link_to 'Companies', companies_path %>
 		<% if user_signed_in? %>
       <%= link_to 'Your Jobs', users_path %>
+      <%= link_to 'Your Reviews', reviews_path %>
       <%= link_to 'View Applications', job_applications_path %>
 			<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
 		<% elsif employer_signed_in? %>

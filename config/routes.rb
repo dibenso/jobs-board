@@ -34,8 +34,10 @@ Rails.application.routes.draw do
   get 'companies' => 'companies#index'
   get 'companies/:id/jobs', to: 'companies#jobs', as: 'company_jobs'
   resources :companies, only: [:show] do
-    resources :reviews, except: [:show]
+    resources :reviews, only: [:create]
   end
+  resources :reviews, only: [:edit, :update, :destroy]
+  get 'reviews' => 'reviews#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

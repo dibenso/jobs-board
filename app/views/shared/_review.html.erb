@@ -1,6 +1,14 @@
+
 <p><%= review.user.username %> Wrote:</p>
 <p><%= review.content %></p>
 <b>Pros</b>
 <p><%= review.pros %></p>
 <b>Cons</b>
 <p><%= review.cons %></p>
+<% if user_signed_in? %>
+  <% if current_user.reviews.exists?(review.id) %>
+    <%= link_to 'Edit', edit_review_path(review) %> | 
+    <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
+<hr>
