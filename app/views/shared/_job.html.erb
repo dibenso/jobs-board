@@ -1,6 +1,7 @@
 <tr>
   <td><%= job.name %></td>
   <td><%= job.company.name %></td>
+  <td><%= image_tag job.company.logo.url(:thumb) %></td>
   <td><%= job.min_wage %></td>
   <td><%= job.max_wage %></td>
   <td><%= job.time %></td>

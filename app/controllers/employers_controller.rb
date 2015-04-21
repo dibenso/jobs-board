@@ -34,21 +34,26 @@ class EmployersController < ApplicationController
   end
 
   def join_company
-    @company = Company.find_by(company_key: params[:company_key])
-    if @company
-      current_employer.company = @company
-      @company.employers << current_employer
+    if current_employer.company
+      flash[:notice] = 'You already belong to a company'
       redirect_to employers_path
     else
-      flash[:notice] = 'You didn\'t enter a valid company key'
-      redirect_to employers_path
+      @company = Company.find_by(company_key: params[:company_key])
+      if @company
+        current_employer.company = @company
+        @company.employers << current_employer
+        redirect_to employers_path
+      else
+        flash[:notice] = 'You didn\'t enter a valid company key'
+        redirect_to employers_path
+      end
     end
   end
 
   private
 
   def company_params
-    params.require(:company).permit(:name, :url)
+    params.require(:company).permit(:name, :url, :logo)
   end
 
   def set_job_application
