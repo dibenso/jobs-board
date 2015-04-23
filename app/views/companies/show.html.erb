@@ -2,7 +2,7 @@
 <% if @company.url %>
   <small>Visit <%= link_to "#{@company.name} website", @company.url %></small>
 <% end %>
-<p><%= link_to pluralize(@company.jobs.count, "job"), company_jobs_path, id: @company.id %></p>
+<p><%= link_to pluralize(@company.jobs.count, "job"), company_jobs_path(@company.id) %></p>
 <p><%= link_to pluralize(@company.reviews.count, "review"), company_path(@company, anchor: 'reviews') %></p>
 
 <h3 id="reviews">Reviews</h3>

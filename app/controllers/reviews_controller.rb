@@ -12,21 +12,22 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.create(review_params)
-    company = Company.find(params[:company_id])
-    if already_reviewed?(company.id)
+    @company = Company.find(params[:company_id])
+    if already_reviewed?(@company.id)
       flash[:notice] = 'Already reviewed.'
-      redirect_to back
+      redirect_to company_path(@company)
     else
-      @review.company_id = company.id
+      @review.company_id = @company.id
       @review.user_id = current_user.id
       current_user.reviews << @review
-      company.reviews << @review
+      @company.reviews << @review
       if @review.save
         flash[:notice] = 'Created review successfully.'
-        redirect_to :back
+        redirect_to company_path(@company)
       else
-        flash[:error] = 'Failed to save review'
-        redirect_to :back
+        flash[:notice] = 'Failed to save review'
+        # redirect_to :back
+        redirect_to company_path(@company)
       end
     end
   end
