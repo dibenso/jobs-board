@@ -7,31 +7,65 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="links">
-		<%= link_to 'Jobs', jobs_path %>
-    <%= link_to 'Companies', companies_path %>
-		<% if user_signed_in? %>
-      <%= link_to 'Your Jobs', users_path %>
-      <%= link_to 'Your Reviews', reviews_path %>
-      <%= link_to 'View Applications', job_applications_path %>
-			<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-		<% elsif employer_signed_in? %>
-			<%= link_to 'New Job', new_job_path %>
-      <%= link_to 'My Jobs', employers_path %>
-      <%= link_to 'View Applications', job_applications_path %>
-			<%= link_to 'Sign Out', destroy_employer_session_path, method: :delete %>
-		<% else %>
-			<%= link_to 'Sign up', new_user_registration_path %>
-			<%= link_to 'Sign in', new_user_session_path %>
-			<%= link_to 'Employer Sign Up', new_employer_registration_path %>
-			<%= link_to 'Employer Sign In', new_employer_session_path %>
-		<% end %>
-	</div>
+  <div class="container-fluid">
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to 'Jobs Board', root_path, class: 'navbar-brand' %>
+        </div>
+        <p class="navbar-text">
+          <%= link_to 'Jobs', jobs_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+          <%= link_to 'Companies', companies_path, class: 'navbar-link' %>
+        </p>
+  	    <% if user_signed_in? %>
+        <p class="navbar-text">
+          <%= link_to 'Your Jobs', users_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+          <%= link_to 'Your Reviews', reviews_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+          <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+  		    <%= link_to 'Sign Out', destroy_user_session_path, class: 'navbar-link', method: :delete %>
+        </p>
+  	    <% elsif employer_signed_in? %>
+        <p class="navbar-text">
+  		    <%= link_to 'New Job', new_job_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+          <%= link_to 'My Jobs', employers_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+          <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+  		    <%= link_to 'Sign Out', destroy_employer_session_path, class: 'navbar-link', method: :delete %>
+        </p>
+  	    <% else %>
+        <p class="navbar-text">
+  		    <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+  		    <%= link_to 'Sign in', new_user_session_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+  		    <%= link_to 'Employer Sign Up', new_employer_registration_path, class: 'navbar-link' %>
+        </p>
+        <p class="navbar-text">
+  		    <%= link_to 'Employer Sign In', new_employer_session_path, class: 'navbar-link' %>
+        </p>
+  	    <% end %>
+      </div>
+    </div>
 
-	<p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
 
-<%= yield %>
-
+    <%= yield %>
+  </div>
 </body>
 </html>
