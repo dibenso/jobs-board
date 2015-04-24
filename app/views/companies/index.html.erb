@@ -8,3 +8,13 @@
   <p><%= link_to pluralize(company.jobs.count, "job"), "/companies/#{company.id}/jobs" %></p>
   <%= link_to pluralize(company.reviews.count, "review"), company_path(company, anchor: 'reviews') %>
 <% end %>
+<hr>
+<% @companies_with_jobs.each do |company| %>
+  <p><%= company.name %></p>
+  <p><%= company.jobs.count %></p>
+<% end %>
+<hr>
+<% @companies_with_reviews.each do |company| %>
+  <p><%= company.name %></p>
+  <p><%= company.reviews.count %></p>
+<% end %>
