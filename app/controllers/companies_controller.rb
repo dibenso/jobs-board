@@ -1,5 +1,10 @@
 class CompaniesController < ApplicationController
   def index
+    @company_search = false
+    if params[:company_search]
+      @company_search = true
+      @searched_companies = Company.search(params[:company_search], fields: [:name])
+    end
     @companies = Company.all
     @companies_with_jobs = compinies_with_jobs(1, 8)
     @companies_with_reviews = companies_with_reviews(0, 8)

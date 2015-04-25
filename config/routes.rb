@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  #get 'companies/index'
-
-  #get 'companies/show'
-
   get 'users/index'
 
   get 'employers/index'

@@ -5,67 +5,65 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <%= link_to 'Jobs Board', root_path, class: 'navbar-brand' %>
-        </div>
-        <p class="navbar-text">
-          <%= link_to 'Jobs', jobs_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-          <%= link_to 'Companies', companies_path, class: 'navbar-link' %>
-        </p>
-  	    <% if user_signed_in? %>
-        <p class="navbar-text">
-          <%= link_to 'Your Jobs', users_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-          <%= link_to 'Your Reviews', reviews_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-          <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-  		    <%= link_to 'Sign Out', destroy_user_session_path, class: 'navbar-link', method: :delete %>
-        </p>
-  	    <% elsif employer_signed_in? %>
-        <p class="navbar-text">
-  		    <%= link_to 'New Job', new_job_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-          <%= link_to 'My Jobs', employers_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-          <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-  		    <%= link_to 'Sign Out', destroy_employer_session_path, class: 'navbar-link', method: :delete %>
-        </p>
-  	    <% else %>
-        <p class="navbar-text">
-  		    <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-  		    <%= link_to 'Sign in', new_user_session_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-  		    <%= link_to 'Employer Sign Up', new_employer_registration_path, class: 'navbar-link' %>
-        </p>
-        <p class="navbar-text">
-  		    <%= link_to 'Employer Sign In', new_employer_session_path, class: 'navbar-link' %>
-        </p>
-  	    <% end %>
-      </div>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <%= link_to 'Jobs Board', root_path, class: 'navbar-brand' %>
     </div>
-
-  	<p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= yield %>
+    <p class="navbar-text">
+      <%= link_to 'Jobs', jobs_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+      <%= link_to 'Companies', companies_path, class: 'navbar-link' %>
+    </p>
+    <% if user_signed_in? %>
+    <p class="navbar-text">
+      <%= link_to 'Your Jobs', users_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+      <%= link_to 'Your Reviews', reviews_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+      <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+	    <%= link_to 'Sign Out', destroy_user_session_path, class: 'navbar-link', method: :delete %>
+    </p>
+    <% elsif employer_signed_in? %>
+    <p class="navbar-text">
+	    <%= link_to 'New Job', new_job_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+      <%= link_to 'My Jobs', employers_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+      <%= link_to 'View Applications', job_applications_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+	    <%= link_to 'Sign Out', destroy_employer_session_path, class: 'navbar-link', method: :delete %>
+    </p>
+    <% else %>
+    <p class="navbar-text">
+	    <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+	    <%= link_to 'Sign in', new_user_session_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+	    <%= link_to 'Employer Sign Up', new_employer_registration_path, class: 'navbar-link' %>
+    </p>
+    <p class="navbar-text">
+	    <%= link_to 'Employer Sign In', new_employer_session_path, class: 'navbar-link' %>
+    </p>
+    <% end %>
   </div>
+
+  <p><%= notice %></p>
+  <p><%= alert %></p>
+
+  <%= yield %>
+
 </body>
 </html>

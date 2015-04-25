@@ -1,0 +1,25 @@
+<div class="top-content">
+  <div class="text-center">
+    <h1>Companies</h1>
+  </div>
+
+  <div class="text-center searchbox">
+    <%= form_tag(companies_path, method: "get") do %>
+      <div class="form-group">
+        <%= label_tag(:company_search, "Search companies:") %>
+        <%= text_field_tag(:company_search, '', class: 'form-control searchbox-input', placeholder: 'Company name') %>
+        <%= submit_tag("Search", class: 'btn btn-default searchbox-button') %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @company_search %>
+  <% if @searched_companies.empty? %>
+    <h2>No results matched your search.</h2>
+  <% else %>
+    <% @searched_companies.each do |company| %>
+      <h2><%= company.name %></h2>
+    <% end %>
+  <% end %>
+<% end %>

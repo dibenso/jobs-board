@@ -14,6 +14,29 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.top_content {
-  background-color: #7cb228;
+.top-content {
+  margin-top: 45px;
+  background-color: #94FF94;
+}
+
+.searchbox {
+  margin-top: 50px;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.searchbox-input {
+  margin-bottom: 25px;
+}
+
+.searchbox-button {
+  margin-bottom: 25px;
+}
+
+.navbar-default {
+  background-color: #000000;
+}
+
+.navbar {
+  margin-bottom: 0;
 }
