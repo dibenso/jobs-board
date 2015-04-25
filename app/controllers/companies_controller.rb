@@ -5,9 +5,9 @@ class CompaniesController < ApplicationController
       @company_search = true
       @searched_companies = Company.search(params[:company_search], fields: [:name])
     end
-    @companies = Company.all
-    @companies_with_jobs = compinies_with_jobs(1, 8)
-    @companies_with_reviews = companies_with_reviews(0, 8)
+    @companies = Company.page(params[:page]).per(8)
+    @companies_with_jobs = compinies_with_jobs(-1, 8)
+    @companies_with_reviews = companies_with_reviews(-1, 8)
   end
 
   def show
@@ -24,10 +24,10 @@ class CompaniesController < ApplicationController
   def compinies_with_jobs(greater_than, limit)
     companies = []
     so_far = 0
-    Company.all.each do |company|
+    Company.all.shuffle.each do |company|
       if company.jobs.count > greater_than && so_far < limit
         companies << company
-        limit += 1
+        so_far += 1
       end
     end
     companies
@@ -36,10 +36,10 @@ class CompaniesController < ApplicationController
   def companies_with_reviews(greater_than, limit)
     companies = []
     so_far = 0
-    Company.all.each do |company|
+    Company.all.shuffle.each do |company|
       if company.reviews.count > greater_than && so_far < limit
         companies << company
-        limit += 1
+        so_far += 1
       end
     end
     companies

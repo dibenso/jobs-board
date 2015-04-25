@@ -6,7 +6,7 @@
   <div class="text-center searchbox">
     <%= form_tag(companies_path, method: "get") do %>
       <div class="form-group">
-        <%= label_tag(:company_search, "Search companies:") %>
+        <%= label_tag(:company_search, "Search companies") %>
         <%= text_field_tag(:company_search, '', class: 'form-control searchbox-input', placeholder: 'Company name') %>
         <%= submit_tag("Search", class: 'btn btn-default searchbox-button') %>
       </div>
@@ -16,10 +16,87 @@
 
 <% if @company_search %>
   <% if @searched_companies.empty? %>
-    <h2>No results matched your search.</h2>
+    <h3>No results matched your search.</h3>
   <% else %>
+    <h3>Search results</h3>
     <% @searched_companies.each do |company| %>
-      <h2><%= company.name %></h2>
+      <div class="panel panel-default">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= link_to company.name, company_path(company) %></h3>
+              </div>
+              <div class="panel-body">
+                <p><%= link_to image_tag(company.logo.url(:thumb)), company_path(company) %></p>
+                 <p><%= link_to pluralize(company.jobs.count, "job"), company_jobs_path(company.id) %></p>
+                 <p><%= link_to pluralize(company.reviews.count, "review"), company_path(company, anchor: 'reviews') %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
   <% end %>
 <% end %>
+
+<h2>Companies with a lot of jobs</h2>
+<% @companies_with_jobs.each_slice(4) do |slice| %>
+  <div class="row">
+    <% slice.each do |company| %>
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= link_to company.name, company_path(company) %></h3>
+          </div>
+          <div class="panel-body">
+            <p><%= link_to image_tag(company.logo.url(:thumb)), company_path(company) %></p>
+            <p><%= link_to pluralize(company.jobs.count, "job"), company_jobs_path(company.id) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h2>Companies with a lot of reviews</h2>
+<% @companies_with_reviews.each_slice(4) do |slice| %>
+  <div class="row">
+    <% slice.each do |company| %>
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= link_to company.name, company_path(company) %></h3>
+          </div>
+          <div class="panel-body">
+            <p><%= link_to image_tag(company.logo.url(:thumb)), company_path(company) %></p>
+            <p><%= link_to pluralize(company.reviews.count, "review"), company_path(company, anchor: 'reviews') %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h2>Other companies</h2>
+<% @companies.each do |company| %>
+  <div class="panel panel-default">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= link_to company.name, company_path(company) %></h3>
+          </div>
+          <div class="panel-body">
+            <p><%= link_to image_tag(company.logo.url(:thumb)), company_path(company) %></p>
+             <p><%= link_to pluralize(company.jobs.count, "job"), company_jobs_path(company.id) %></p>
+             <p><%= link_to pluralize(company.reviews.count, "review"), company_path(company, anchor: 'reviews') %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="text-center">
+  <%= paginate @companies %>
+</div>
+

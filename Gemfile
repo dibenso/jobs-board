@@ -45,6 +45,9 @@ gem 'bootstrap-sass', '~> 3.3.4'
 # For searching records
 gem 'searchkick', '~> 0.8.7'
 
+# For pagination
+gem 'kaminari', '~> 0.16.3'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

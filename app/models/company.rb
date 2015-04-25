@@ -2,7 +2,7 @@ require 'uri'
 require 'securerandom'
 
 class Company < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, :logo, presence: true
   validates :name, :url, :company_key, uniqueness: true
   validates :url, format: { with: URI.regexp }
 
