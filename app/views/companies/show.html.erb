@@ -1,16 +1,50 @@
-<h2><%= @company.name %></h2>
-<% if @company.url %>
-  <small>Visit <%= link_to "#{@company.name} website", @company.url %></small>
-<% end %>
-<p><%= link_to pluralize(@company.jobs.count, "job"), company_jobs_path(@company.id) %></p>
-<p><%= link_to pluralize(@company.reviews.count, "review"), company_path(@company, anchor: 'reviews') %></p>
-
-<h3 id="reviews">Reviews</h3>
-<%= render partial: 'shared/review', collection: @company.reviews %>
-
-<% if user_signed_in? %>
-  <% unless already_reviewed?(@company.id) %>
-    <h4>Write a review</h4>
-    <%= render 'shared/review_form' %>
-  <% end %>
-<% end %>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title text-center"><%= link_to @company.name, company_path(@company) %></h1>
+        </div>
+        <div class="panel-body text-center">
+          <p><%= link_to image_tag(@company.logo.url(:medium)), company_path(@company) %></p>
+          <h2><%= link_to pluralize(@company.jobs.count, 'job'), company_jobs_path(@company.id) %></h3>
+          <h2><%= link_to pluralize(@company.reviews.count, 'review'), company_path(@company, anchor: 'reviews') %></h3>
+          <% if @company.url %>
+            <p><%= link_to "#{@company.name} website", @company.url %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% unless @random_jobs.empty? %>
+      <div class="col-md-6 text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Some jobs by <%= @company.name %></h2>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-md-6">
+      <div class="row">
+        <% @random_jobs.each do |job| %>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+              </div>
+              <div class="panel-body text-center">
+                <p><%= job.job_category %></p>
+                <p><%= pluralize(job.apply_count, 'person') %> applied to this job</p>
+                <% if user_signed_in? %>
+                  <% unless current_user.jobs.exists?(job.id) %>
+                    <%= link_to 'Apply', controller: :job_applications, action: :new, job_id: job.id %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

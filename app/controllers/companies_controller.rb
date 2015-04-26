@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
       @company_search = true
       @searched_companies = Company.search(params[:company_search], fields: [:name])
     end
-    @companies = Company.page(params[:page]).per(8)
+    @companies = Company.page(params[:page]).per(6)
     @companies_with_jobs = compinies_with_jobs(-1, 8)
     @companies_with_reviews = companies_with_reviews(-1, 8)
   end
@@ -13,6 +13,7 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @review = Review.new
+    @random_jobs = @company.jobs.shuffle.first(8)
   end
 
   def jobs
