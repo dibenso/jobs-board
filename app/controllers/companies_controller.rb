@@ -12,6 +12,7 @@ class CompaniesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
+    @reviews = @company.reviews
     @review = Review.new
     @random_jobs = @company.jobs.shuffle.first(8)
   end
