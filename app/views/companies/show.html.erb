@@ -56,9 +56,9 @@
               <%= label_tag "Review content" %>
               <%= text_field_tag('review[content]', '', class: 'form-control', placeholder: 'Something to say about this company') %><br>
               <%= label_tag "Pros" %>
-              <%= text_field_tag('review[pros]', '', class: 'form-control', placeholder: 'Something to say about this company') %><br>
+              <%= text_field_tag('review[pros]', '', class: 'form-control', placeholder: 'Something nice to say') %><br>
               <%= label_tag "Cons" %>
-              <%= text_field_tag('review[cons]', '', class: 'form-control', placeholder: 'Something to say about this company') %><br>
+              <%= text_field_tag('review[cons]', '', class: 'form-control', placeholder: 'Something bad to say') %><br>
               <%= submit_tag("Submit", class: 'btn btn-default') %>
             </div>
           <% end %>
