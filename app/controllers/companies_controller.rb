@@ -18,7 +18,10 @@ class CompaniesController < ApplicationController
   end
 
   def jobs
-    @jobs = Company.find(params[:id]).jobs
+    Rails.logger.debug "============> #{params}"
+    @company = Company.find(params[:id])
+    @jobs = @company.jobs
+    @job_categories = Job.new.job_categories
   end
 
   private

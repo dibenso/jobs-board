@@ -8,6 +8,7 @@ class Job < ActiveRecord::Base
 	validates :description, length: { in: 32..4096 }
 	validates :time, inclusion: { in: %w(Part Full Contract Seasonal) }
   validate :job_category_included
+  validate :max_wage_greater_than_or_equal_to_min_wage
 
 	belongs_to :employer
 
@@ -15,6 +16,10 @@ class Job < ActiveRecord::Base
 	has_many :users, through: :employments
   has_many :job_applications
   belongs_to :company
+
+  def steady_wage?
+    max_wage == min_wage
+  end
 
   def job_categories
     ["Accountant", "Actor", "Administrative Assistant / Secretary",
@@ -42,6 +47,10 @@ class Job < ActiveRecord::Base
   end
 
   private
+
+  def max_wage_greater_than_or_equal_to_min_wage
+    errors.add(:base, "Minimum wage must be less than or equal to maximum wage.") unless min_wage <= max_wage
+  end
 
   def job_category_included
     job_categories.include?(self.job_category)
