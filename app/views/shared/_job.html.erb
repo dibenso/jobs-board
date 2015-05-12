@@ -1,19 +1,14 @@
-<tr>
-  <td><%= job.name %></td>
-  <td><%= job.company.name %></td>
-  <td><%= image_tag job.company.logo.url(:thumb) %></td>
-  <td><%= job.min_wage %></td>
-  <td><%= job.max_wage %></td>
-  <td><%= job.time %></td>
-  <td><%= job.location %></td>
-  <td><%= job.job_category %></td>
-  <td><%= job.apply_count %></td>
-  <td><%= job.description %></td>
-  <td><%= link_to 'Show', job %></td>
-  <% if employer_signed_in? %>
-    <% if current_employer.jobs.exists?(job.id) %>
-      <td><%= link_to 'Edit', edit_job_path(job) %></td>
-      <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+  </div>
+  <div class="panel-body text-center">
+    <p><%= job.job_category %></p>
+    <p><%= pluralize(job.apply_count, 'person') %> applied to this job</p>
+    <% if user_signed_in? %>
+      <% unless current_user.jobs.exists?(job.id) %>
+        <%= link_to 'Apply', controller: :job_applications, action: :new, job_id: job.id %>
+      <% end %>
     <% end %>
-  <% end %>
-</tr>
+  </div>
+</div>

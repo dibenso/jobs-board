@@ -19,10 +19,10 @@ class CompaniesController < ApplicationController
 
   def jobs
     @company = Company.find(params[:id])
-    @jobs = @company.jobs
+    @jobs = @company.jobs.page(params[:page]).per(9)
     @job_categories = Job.new.job_categories
     @searched_jobs = []
-    if (search_params(params).keys & allowed_search_params).any?
+    if (params.keys & allowed_search_params).any?
       @searched_jobs = search_jobs(params, @company)
     end
   end
@@ -30,18 +30,21 @@ class CompaniesController < ApplicationController
   private
 
   def search_jobs(params, company)
-    id = params[:id]
     jobs = company.jobs
     if params[:created_at]
       created_at = params[:created_at]
       params.delete(:created_at)
+      search_params(params)
       case created_at
       when 'week'
-        jobs.where('created_at >= ?', 1.week.ago).search(where: params)
+        params[:created_at] = 1.week.ago..Time.now
+        jobs.search(where: params)
       when 'month'
-        jobs.where('created_at >= ?', 1.month.ago).search(where: params)
+        params[:created_at] = 1.year.ago..Time.now
+        jobs.search(where: params)
       when 'year'
-        jobs.where('created_at >= ?', 1.year.ago).search(where: params)
+        params[:created_at] = 1.year.ago..Time.now
+        jobs.search(where: params)
       else
         jobs.search(where: params)
       end
