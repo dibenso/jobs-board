@@ -5,28 +5,33 @@
     <h2>Job search</h2>
       <%= form_tag(company_jobs_path(@company), method: 'get') do %>
         <div class="form-group">
-          <%= label_tag(:search, "Search jobs") %>
-          <%= text_field_tag(:search, '', class: 'form-control', placeholder: 'Job name') %><br>
-          <%= label_tag(:category, "Job category") %>
-          <%= select_tag(:category, options_for_select(@job_categories), {include_blank: true}) %><br><br>
-          <%= label_tag(:employment_time, "Employment length") %><br>
-          <%= label_tag(:employment_time, "Full Time") %>
-          <%= radio_button_tag('employment_time', 'Full') %>
-          <%= label_tag(:employment_time, "Part Time") %>
-          <%= radio_button_tag('employment_time', 'Part') %>
-          <%= label_tag(:employment_time, "Seasonal") %>
-          <%= radio_button_tag('employment_time', 'Seasonal') %>
-          <%= label_tag(:employment_time, "Contract") %>
-          <%= radio_button_tag('employment_time', 'Contract') %><br><br>
-          <%= label_tag(:age, "Date posted") %><br>
-          <%= label_tag(:age, "Last week") %>
-          <%= radio_button_tag('age', "week") %><br>
-          <%= label_tag(:age, "Last month") %>
-          <%= radio_button_tag('age', "month") %><br>
-          <%= label_tag(:age, "Last year") %>
-          <%= radio_button_tag('age', "year") %><br>
+          <%= label_tag(:name, "Search jobs") %>
+          <%= text_field_tag(:name, '', class: 'form-control', placeholder: 'Job name') %><br>
+          <%= label_tag(:job_category, "Job category") %>
+          <%= select_tag(:job_category, options_for_select(@job_categories), {include_blank: true}) %><br><br>
+          <%= label_tag(:time, "Employment length") %><br>
+          <%= label_tag(:time, "Full Time") %>
+          <%= radio_button_tag('time', 'Full') %>
+          <%= label_tag(:time, "Part Time") %>
+          <%= radio_button_tag('time', 'Part') %>
+          <%= label_tag(:time, "Seasonal") %>
+          <%= radio_button_tag('time', 'Seasonal') %>
+          <%= label_tag(:time, "Contract") %>
+          <%= radio_button_tag('time', 'Contract') %><br><br>
+          <%= label_tag(:created_at, "Date added") %><br>
+          <%= label_tag(:created_at, "Past week") %>
+          <%= radio_button_tag('created_at', "week") %><br>
+          <%= label_tag(:created_at, "Past month") %>
+          <%= radio_button_tag('created_at', "month") %><br>
+          <%= label_tag(:created_at, "Past year") %>
+          <%= radio_button_tag('created_at', "year") %><br>
           <%= button_tag("Search", class: 'btn btn-default') %>
         </div>
+      <% end %>
+    </div>
+    <div class="col-md-10">
+      <% @searched_jobs.each do |job| %>
+        <p><%= job.name %></p>
       <% end %>
     </div>
   </div>

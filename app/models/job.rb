@@ -1,5 +1,7 @@
 class Job < ActiveRecord::Base
 
+  searchkick
+
 	validates :name, :min_wage, :max_wage, :time,
 			  :location, :description, :company, :job_category, presence: true
 
