@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
 
   def jobs
     @company = Company.find(params[:id])
-    @jobs = @company.jobs.page(params[:page]).per(9)
+    @jobs = @company.jobs.page(params[:page]).per(15)
     @job_categories = Job.new.job_categories
     @searched = false
     @searched_jobs = []
