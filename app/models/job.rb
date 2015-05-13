@@ -23,6 +23,10 @@ class Job < ActiveRecord::Base
     max_wage == min_wage
   end
 
+  def pretty_created_at_time
+    self.created_at.to_time.strftime('%B %e at %l:%M %p')
+  end
+
   def job_categories
     ["Accountant", "Actor", "Administrative Assistant / Secretary",
      "Advertising", "Alaska Fishing Jobs", "Aircraft Dispatcher",

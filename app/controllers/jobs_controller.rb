@@ -14,6 +14,9 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
+    @job_application = JobApplication.new
+    # Use reject here later
+    @similar_jobs = Job.where(company_id: @job.company_id, job_category: @job.job_category, location: @job.location).limit(8).shuffle
   end
 
   # GET /jobs/new

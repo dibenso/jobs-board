@@ -1,48 +1,39 @@
-<p>
-  <strong>Name:</strong>
-  <%= @job.name %>
-</p>
-
-<p>
-  <strong>Min wage:</strong>
-  <%= @job.min_wage %>
-</p>
-
-<p>
-  <strong>Max wage:</strong>
-  <%= @job.max_wage %>
-</p>
-
-<p>
-  <strong>Time:</strong>
-  <%= @job.time %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @job.location %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @job.job_category %>
-</p>
-
-<p>
-  <strong>Application Count:</strong>
-  <%= @job.apply_count %>
-</p>
-
-<% if employer_signed_in? %>
-  <% if current_employer.jobs.exists?(@job.id) %>
-    <%= link_to 'Edit', edit_job_path(@job) %> |
-  <% end %>
-<% end %>
-
-<%= link_to 'Back', jobs_path %>
-
-<% if user_signed_in? %>
-  <% unless current_user.jobs.exists?(@job.id) %>
-    <%= link_to 'Apply', controller: :job_applications, action: :new, job_id: @job.id %>
-  <% end %>
-<% end %>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <%= link_to image_tag(@job.company.logo.url(:thumb)), company_path(@job.company) %> <%= @job.job_category %>
+      <p><%= link_to @job.company.name, company_path(@job.company) %></p>
+      <p>Located in <%= @job.location %></p>
+      <h3><%= @job.name %> needed</h3>
+      <% if @job.steady_wage? %>
+        <p><%= number_to_currency(@job.max_wage) %></p>
+      <% else %>
+        <p><%= number_to_currency(@job.min_wage) %> - <%= number_to_currency(@job.max_wage) %></p>
+      <% end %>
+      <% if ['Part', 'Full'].include?(@job.time) %>
+        <p><%= @job.time %> time</p>
+      <% else %>
+        <p><%= @job.time %></p>
+      <% end %>
+      <p><%= @job.description %></p>
+      <p><%= pluralize(@job.apply_count, "person") %> applied</p>
+      <p>Posted <%= @job.pretty_created_at_time %></p>
+    </div>
+    <div class="col-md-4">
+      <% if user_signed_in? %>
+        <% if current_user.jobs.include?(@job) %>
+          <h2>You applied to this job</h2>
+        <% else %>
+          <h2>Apply to this job</h2>
+          <%= render 'shared/job_application_form' %>
+        <% end %>
+      <% elsif employer_signed_in? %>
+        <% if current_employer.jobs.include?(@job) %>
+          <h2>You posted this job</h2>
+        <% end %>
+      <% else %>
+        <h2><%= link_to 'Sign up', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %> to apply to this job</h2>
+      <% end %>
+    </div>
+  </div>
+</div>
