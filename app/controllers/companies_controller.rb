@@ -21,8 +21,10 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @jobs = @company.jobs.page(params[:page]).per(9)
     @job_categories = Job.new.job_categories
+    @searched = false
     @searched_jobs = []
     if (params.keys & allowed_search_params).any?
+      @searched = true
       @searched_jobs = search_jobs(params, @company)
     end
   end
