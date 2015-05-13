@@ -20,16 +20,6 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-  def new
-    @job = Job.find(params[:job_id])
-    ensure_user_has_not_already_applied(@job.id)
-    unless @job
-      flash[:notice] = "Please use the links provided."
-      redirect_to root_path
-    end
-    @job_application = JobApplication.new
-  end
-
   def create
     @job_application = JobApplication.new(job_application_params)
     @job = Job.find(params[:job_id])

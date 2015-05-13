@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :job_applications, only: [:index, :show, :destroy]
   
   post 'job_applications/:job_id/create' => 'job_applications#create'
-  get 'job_applications/:job_id/new' => 'job_applications#new'
 
   resources :employers, only: [:index]
 
