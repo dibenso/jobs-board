@@ -35,5 +35,38 @@
         </div>
       <% end %>
     </div>
+    <div class="col-md-10">
+      <% @searched_jobs.each_slice(6) do |slice| %>
+        <div class="row">
+          <% slice.each do |job| %>
+            <div class="col-md-2">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+                </div>
+                <div class="panel-body text-center">
+                  <%= link_to image_tag(job.company.logo.url(:thumb)), company_path(job.company) %>
+                  <p><%= job.job_category %></p>
+                  <p><%= job.location %></p>
+                  <p><%= pluralize(job.apply_count, 'person') %> 
+                  applied to this job</p>
+                  <% if job.time == 'Full' || job.time == 'Part' %>
+                    <p><%= job.time %> time</p>
+                  <% else %>
+                    <p><%= job.time %></p>
+                  <% end %>
+                  <% if job.steady_wage? %>
+                    <p><%= number_to_currency(job.max_wage) %></p>
+                  <% else %>
+                    <p><%= number_to_currency(job.min_wage) %> - <%= number_to_currency(job.max_wage) %></p>
+                  <% end %>
+                  <p>Post: <%= job.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

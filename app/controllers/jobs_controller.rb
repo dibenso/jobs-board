@@ -19,7 +19,8 @@ class JobsController < ApplicationController
     @searched = false
     if params[:search]
       @searched = true
-      @searched_jobs = search_jobs(search_params(params[:search]))
+      search_params(params[:search])
+      @searched_jobs = search_jobs(params[:search]) || []
     end
   end
 
@@ -87,9 +88,11 @@ class JobsController < ApplicationController
 
   def search_jobs(params)
     job_name = params[:name]
-    return unless ['day', 'week', 'month', 'year'].include?(params[:created_at]) && params[:created_at]
     params.delete(:name)
-    params[:created_at] = {gte: eval("1.#{params[:created_at]}.ago")} if params[:created_at]
+    if params[:created_at]
+      return unless ['day', 'week', 'month', 'year'].include?(params[:created_at])
+      params[:created_at] = {gte: eval("1.#{params[:created_at]}.ago")}
+    end
     if job_name
       Job.search(job_name, order: {apply_count: :desc}, where: params.permit(allowed_search_params))
     else
