@@ -20,7 +20,7 @@ class JobsController < ApplicationController
     if params[:search]
       @searched = true
       search_params(params[:search])
-      @searched_jobs = search_jobs(params[:search]) || []
+      @searched_jobs = search_jobs(params[:search], params[:page]) || []
     end
   end
 
@@ -86,7 +86,7 @@ class JobsController < ApplicationController
 
   private
 
-  def search_jobs(params)
+  def search_jobs(params, page)
     job_name = params[:name]
     params.delete(:name)
     if params[:created_at]
@@ -94,14 +94,14 @@ class JobsController < ApplicationController
       params[:created_at] = {gte: eval("1.#{params[:created_at]}.ago")}
     end
     if job_name
-      Job.search(job_name, order: {apply_count: :desc}, where: params.permit(allowed_search_params))
+      Job.search(job_name, page: page, per_page: 6, order: {apply_count: :desc}, where: params.permit(allowed_search_params))
     else
-      Job.search(order: {apply_count: :desc}, where: params.permit(allowed_search_params))
+      Job.search(page: page, per_page: 6, order: {apply_count: :desc}, where: params.permit(allowed_search_params))
     end
   end
 
   def allowed_search_params
-    ['name', 'time', 'job_category', 'created_at']
+    ['name', 'time', 'job_category', 'created_at', 'page']
   end
 
   def search_params(params)
