@@ -8,7 +8,18 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @full_time_jobs = Job.where(time: 'Full').shuffle.first(12)
+    @part_time_jobs = Job.where(time: 'Part').shuffle.first(12)
+    @seasonal_jobs = Job.where(time: 'Seasonal').shuffle.first(12)
+    @contract_jobs = Job.where(time: 'Contract').shuffle.first(12)
+    @popular_jobs = Job.all.sort_by { |j| -j.apply_count }.first(48).shuffle.first(12)
+    @recent_jobs = Job.all.order('created_at DESC').first(50).shuffle.first(12)
+    @searched_jobs = []
+    @searched = false
+    if params[:search]
+      @searched = true
+      @searched_jobs = search_jobs(search_params(params[:search]))
+    end
   end
 
   # GET /jobs/1
@@ -72,6 +83,29 @@ class JobsController < ApplicationController
   end
 
   private
+
+  def search_jobs(params)
+    job_name = params[:name]
+    created_at = params[:created_at]
+    return unless ['day', 'week', 'month', 'year'].include?(created_at)
+    params.delete(:name)
+    params.delete(:created_at)
+    search = Job.search(job_name, order: {apply_count: :desc}, where: {
+      created_at: {
+        gte: eval("1.#{created_at}.ago")
+      },
+      params
+    })
+  end
+
+  def allowed_search_params
+    ['name', 'time', 'job_category', 'created_at']
+  end
+
+  def search_params(params)
+    params.delete_if { |key, val| val == '' || !allowed_search_params.include?(key.to_s) }
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_job
     @job = Job.find(params[:id])

@@ -23,7 +23,7 @@ class CompaniesController < ApplicationController
     @job_categories = Job.new.job_categories
     @searched = false
     @searched_jobs = []
-    if (params.keys & allowed_search_params).any?
+    if (params.keys & allowed_search_params.map(&:to_sym)).any?
       @searched = true
       @searched_jobs = search_jobs(params, @company)
     end
