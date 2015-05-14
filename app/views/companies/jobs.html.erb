@@ -1,7 +1,7 @@
 <div class="main-content">
   <h1 class="text-center"><%= @company.name %> Jobs</h1>
   <% if @searched_jobs.empty? && @searched %>
-    <h2>No results matched your search</h2>
+    <h2 class="text-center">No results matched your search</h2>
   <% elsif @searched %>
     <h2 class="text-center">Search results</h2>
   <% end %>

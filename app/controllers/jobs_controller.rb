@@ -14,6 +14,7 @@ class JobsController < ApplicationController
     @contract_jobs = Job.where(time: 'Contract').shuffle.first(12)
     @popular_jobs = Job.all.sort_by { |j| -j.apply_count }.first(48).shuffle.first(12)
     @recent_jobs = Job.all.order('created_at DESC').first(50).shuffle.first(12)
+    @job_categories = Job.new.job_categories
     @searched_jobs = []
     @searched = false
     if params[:search]
@@ -86,16 +87,14 @@ class JobsController < ApplicationController
 
   def search_jobs(params)
     job_name = params[:name]
-    created_at = params[:created_at]
-    return unless ['day', 'week', 'month', 'year'].include?(created_at)
+    return unless ['day', 'week', 'month', 'year'].include?(params[:created_at]) && params[:created_at]
     params.delete(:name)
-    params.delete(:created_at)
-    search = Job.search(job_name, order: {apply_count: :desc}, where: {
-      created_at: {
-        gte: eval("1.#{created_at}.ago")
-      },
-      params
-    })
+    params[:created_at] = {gte: eval("1.#{params[:created_at]}.ago")} if params[:created_at]
+    if job_name
+      Job.search(job_name, order: {apply_count: :desc}, where: params.permit(allowed_search_params))
+    else
+      Job.search(order: {apply_count: :desc}, where: params.permit(allowed_search_params))
+    end
   end
 
   def allowed_search_params

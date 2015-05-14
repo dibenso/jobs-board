@@ -1,29 +1,39 @@
-<h1>Listing Jobs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Company</th>
-      <th>Logo</th>
-      <th>Min wage</th>
-      <th>Max wage</th>
-      <th>Time</th>
-      <th>Location</th>
-      <th>Category</th>
-      <th>Application count</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render partial: "shared/job", collection: @jobs %>
-  </tbody>
-</table>
-
-<br>
-
-<% if employer_signed_in? %>
-  <%= link_to 'New Job', new_job_path %>
-<% end %>
+<div class="main-content">
+  <% if @searched %>
+    <% if @searched_jobs.empty? %>
+      <h2 class="text-center">No results matched your search</h2>
+    <% else %>
+      <h2 class="text-center">Search results</h2>
+    <% end %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-2">
+      <h2>Job search</h2>
+      <%= form_tag(jobs_path, method: 'get') do %>
+        <div class="form-group">
+          <%= label_tag("search[name]", "Search jobs") %>
+          <%= text_field_tag("search[name]", '', class: 'form-control', placeholder: 'Job name') %><br>
+          <%= label_tag("search[job_category]", "Job category") %>
+          <%= select_tag("search[job_category]", options_for_select(@job_categories), {include_blank: true}) %><br><br>
+          <%= label_tag("search[time]", "Employment length") %><br>
+          <%= label_tag("search[time]", "Full Time") %>
+          <%= radio_button_tag("search[time]", 'Full') %>
+          <%= label_tag("search[time]", "Part Time") %>
+          <%= radio_button_tag("search[time]", 'Part') %>
+          <%= label_tag("search[time]", "Seasonal") %>
+          <%= radio_button_tag("search[time]", 'Seasonal') %>
+          <%= label_tag("search[time]", "Contract") %>
+          <%= radio_button_tag("search[time]", 'Contract') %><br><br>
+          <%= label_tag("search[created_at]", "Date added") %><br>
+          <%= label_tag("search[created_at]", "Past week") %>
+          <%= radio_button_tag("search[created_at]", "week") %><br>
+          <%= label_tag("search[created_at']", "Past month") %>
+          <%= radio_button_tag("search[created_at]", "month") %><br>
+          <%= label_tag("search[created_at]", "Past year") %>
+          <%= radio_button_tag("search[created_at]", "year") %><br>
+          <%= button_tag("Search", class: 'btn btn-default') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
