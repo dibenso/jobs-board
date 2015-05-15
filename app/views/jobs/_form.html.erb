@@ -1,45 +1,47 @@
 <%= form_for(@job) do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+  <div class="form-group">
+    <% if @job.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
 
-      <ul>
-      <% @job.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @job.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :min_wage %><br>
-    <%= f.text_field :min_wage %>
-  </div>
-  <div class="field">
-    <%= f.label :max_wage %><br>
-    <%= f.text_field :max_wage %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
-  </div>
-  <div class="field">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :job_category %><br>
-    <%= select_tag 'job[job_category]', options_for_select(@job.job_categories) %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, size: '30x5' %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <div class="field">
+      <%= f.label :min_wage %><br>
+      <%= f.text_field :min_wage %>
+    </div>
+    <div class="field">
+      <%= f.label :max_wage %><br>
+      <%= f.text_field :max_wage %>
+    </div>
+    <div class="field">
+      <%= f.label :time %><br>
+      <%= select_tag 'job[time]', options_for_select(['Full', 'Part', 'Seasonal', 'Contract']) %>
+    </div>
+    <div class="field">
+      <%= f.label :location %><br>
+      <%= f.text_field :location %>
+    </div>
+    <div class="field">
+      <%= f.label :job_category %><br>
+      <%= select_tag 'job[job_category]', options_for_select(@job.job_categories) %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, size: '30x5' %>
+    </div>
+    <div class="actions">
+      <%= f.submit class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>
