@@ -22,6 +22,7 @@ class JobsController < ApplicationController
       search_params(params[:search])
       @searched_jobs = search_jobs(params[:search], params[:page]) || []
     end
+    @big_jobs = Job.all.shuffle.first(2) if @searched_jobs.empty? && !@searched
   end
 
   # GET /jobs/1

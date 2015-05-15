@@ -35,51 +35,75 @@
         </div>
       <% end %>
     </div>
-    <div class="col-md-10">
-      <% @searched_jobs.each_slice(6) do |slice| %>
+    <% if @searched_jobs.empty? %>
+      <div class="col-md-10">
         <div class="row">
-          <% slice.each do |job| %>
-            <div class="col-md-2">
+          <% @big_jobs.each do |job| %>
+            <div class="col-md-6">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
                 </div>
                 <div class="panel-body text-center">
                   <%= render partial: 'shared/job', object: job %>
+                  <p><%= job.description %></p>
                 </div>
               </div>
             </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
-  </div>
-  <div class="text-center">
-    <%= paginate @searched_jobs %>
-  </div>
-  <div class="text-center">
-    <h2>Popular jobs</h2>
-  </div>
-  <% @popular_jobs.each_slice(12) do |slice| %>
-    <div class="row">
-      <% slice.each do |job| %>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
-            </div>
-            <div class="panel-body text-center">
-              <%= render partial: 'shared/job', object: job %>
-            </div>
+      </div>
+    <% else %>
+      <div class="col-md-10">
+        <% @searched_jobs.each_slice(6) do |slice| %>
+          <div class="row">
+            <% slice.each do |job| %>
+              <div class="col-md-2">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+                  </div>
+                  <div class="panel-body text-center">
+                    <%= render partial: 'shared/job', object: job %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% unless @searched_jobs.empty? %>
+    <div class="text-center">
+      <%= paginate @searched_jobs %>
     </div>
   <% end %>
+  <div class="black-bg">
+    <div class="text-center">
+      <h2>Popular jobs</h2>
+    </div>
+    <% @popular_jobs.each_slice(6) do |slice| %>
+      <div class="row">
+        <% slice.each do |job| %>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+              </div>
+              <div class="panel-body text-center">
+                <%= render partial: 'shared/job', object: job %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <div class="text-center">
     <h2>Recent jobs</h2>
   </div>
-  <% @recent_jobs.each_slice(12) do |slice| %>
+  <% @recent_jobs.each_slice(6) do |slice| %>
     <div class="row">
       <% slice.each do |job| %>
         <div class="col-md-2">
@@ -95,29 +119,31 @@
       <% end %>
     </div>
   <% end %>
-  <div class="text-center">
-    <h2>Full time jobs</h2>
+  <div class="black-bg">
+    <div class="text-center">
+      <h2>Full time jobs</h2>
+    </div>
+    <% @full_time_jobs.each_slice(6) do |slice| %>
+      <div class="row">
+        <% slice.each do |job| %>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+              </div>
+              <div class="panel-body text-center">
+                <%= render partial: 'shared/job', object: job %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-  <% @full_time_jobs.each_slice(12) do |slice| %>
-    <div class="row">
-      <% slice.each do |job| %>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
-            </div>
-            <div class="panel-body text-center">
-              <%= render partial: 'shared/job', object: job %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
   <div class="text-center">
     <h2>Part time jobs</h2>
   </div>
-  <% @part_time_jobs.each_slice(12) do |slice| %>
+  <% @part_time_jobs.each_slice(6) do |slice| %>
     <div class="row">
       <% slice.each do |job| %>
         <div class="col-md-2">
@@ -133,29 +159,31 @@
       <% end %>
     </div>
   <% end %>
-  <div class="text-center">
-    <h2>Seasonal jobs</h2>
+  <div class="black-bg">
+    <div class="text-center">
+      <h2>Seasonal jobs</h2>
+    </div>
+    <% @seasonal_jobs.each_slice(6) do |slice| %>
+      <div class="row">
+        <% slice.each do |job| %>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
+              </div>
+              <div class="panel-body text-center">
+                <%= render partial: 'shared/job', object: job %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-  <% @seasonal_jobs.each_slice(12) do |slice| %>
-    <div class="row">
-      <% slice.each do |job| %>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title text-center"><%= link_to job.name, job_path(job) %></h3>
-            </div>
-            <div class="panel-body text-center">
-              <%= render partial: 'shared/job', object: job %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
   <div class="text-center">
     <h2>Contract jobs</h2>
   </div>
-  <% @contract_jobs.each_slice(12) do |slice| %>
+  <% @contract_jobs.each_slice(6) do |slice| %>
     <div class="row">
       <% slice.each do |job| %>
         <div class="col-md-2">
