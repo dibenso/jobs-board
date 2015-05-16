@@ -13,4 +13,4 @@ applied to this job</p>
 <% else %>
   <p><%= number_to_currency(job.min_wage) %> - <%= number_to_currency(job.max_wage) %></p>
 <% end %>
-<p>Post: <%= job.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>
+<p>Posted: <%= job.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>

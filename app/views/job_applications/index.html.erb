@@ -9,6 +9,7 @@
       <% slice.each do |job_application| %>
         <div class="col-md-4">
           <%= render partial: 'job_application', object: job_application %>
+          <%= link_to 'Show job application', job_application_path(job_application) %><br>
         </div>
       <% end %>
     </div>

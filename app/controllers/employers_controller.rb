@@ -3,7 +3,7 @@ class EmployersController < ApplicationController
   before_action :set_job_application, only: [:show]
 
   def index
-    @jobs = current_employer.jobs
+    @jobs = current_employer.jobs.page(params[:page]).per(8)
     @company = Company.new unless current_employer.company
   end
 
