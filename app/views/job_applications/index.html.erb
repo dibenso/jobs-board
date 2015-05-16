@@ -1,21 +1,19 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Job Applications</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Phone number</th>
-      <th>Cover letter</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render partial: 'shared/job_application', collection: @job_applications %>
-  </tbody>
-</table>
-
-<br>
+<div class="main-content">
+  <% if @user %>
+    <h2 class="text-center">Jobs that you applied to</h2>
+  <% elsif @employer %>
+    <h2 class="text-center">Recieved job applications</h2>
+  <% end %>
+  <% @job_applications.each_slice(3) do |slice| %>
+    <div class="row">
+      <% slice.each do |job_application| %>
+        <div class="col-md-4">
+          <%= render partial: 'job_application', object: job_application %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="text-center">
+    <%= paginate @job_applications %>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<h3>Company: <%= job_application.job.company.name %></h3>
+<h4>Job: <%= job_application.job.name %></h4>
+<h4>First name: <%= job_application.first_name %></h4>
+<h4>Last name: <%= job_application.last_name %></h4>
+<h4>Phone number: <%= job_application.phone_number %></h4>
+<p>Cover letter:</p>
+<p><%= job_application.cover_letter %></p>
+<%= link_to 'Show job_application', job_application_path(job_application) %><br>
+<% if @employer %>
+  <%= link_to 'Delete job application', job_application, method: :delete, data: {
+    confirm: 'Are you sure?', class: 'btn btn-danger' } %>
+<% end %>

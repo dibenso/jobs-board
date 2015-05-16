@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="row">
     <div class="col-md-3">
-    <h2>Edit review</h2>
+      <h2>Edit review</h2>
       <%= form_for([@company, @review]) do |f| %>
         <% if @review.errors.any? %>
           <div id="error_explanation">
@@ -29,8 +29,11 @@
         </div><br>
         <div class="actions">
           <%= f.submit class: 'btn btn-default' %>
-        </div>
+        </div><br>
       <% end %>
+      
+      <%= link_to 'Home', root_path %> | 
+      <%= link_to 'Back', reviews_path %>
     </div>
   </div>
 </div>

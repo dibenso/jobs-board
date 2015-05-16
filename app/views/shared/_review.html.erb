@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <%= company_name = Company.find(review.company_id).name %>
+    <% company_name = Company.find(review.company_id).name %>
     <p><%= review.user.username %> Wrote a review about <%= link_to company_name, company_path(review.company_id) %>:</p>
     <p><%= review.content %></p>
     <b>Pros</b>

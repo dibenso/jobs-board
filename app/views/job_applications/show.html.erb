@@ -1,30 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @job_application.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @job_application.last_name %>
-</p>
-
-<p>
-  <strong>Phone number:</strong>
-  <%= @job_application.phone_number %>
-</p>
-
-<p>
-  <strong>Cover letter:</strong>
-  <%= @job_application.cover_letter %>
-</p>
-
-<% if employer_signed_in? %>
-    <% if current_employer.job_applications.exists?(@job_application.id) %>
-      <td><%= link_to 'Destroy', @job_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  <% end %>
-
- |
-<%= link_to 'Back', job_applications_path %>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-4">
+      <%= render partial: 'job_application', object: @job_application %>
+    </div>
+  </div>
+</div>

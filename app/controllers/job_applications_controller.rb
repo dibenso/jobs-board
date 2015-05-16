@@ -5,10 +5,15 @@ class JobApplicationsController < ApplicationController
   before_action :authenticate_user_or_employer!, only: [:show, :index]
 
   def index
+    @user = nil
+    @employer = nil
+
     if user_signed_in?
-      @job_applications = current_user.job_applications
+      @user = true
+      @job_applications = current_user.job_applications.page(params[:page]).per(8)
     else
-      @job_applications = current_employer.job_applications
+      @employer = true
+      @job_applications = current_employer.job_applications.page(params[:page]).per(8)
     end
   end
 
