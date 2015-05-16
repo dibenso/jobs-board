@@ -1,1 +1,4 @@
-<%= render partial: 'shared/review', collection: @reviews %>
+<div class="main-content">
+  <%= render partial: 'shared/review', collection: @reviews %>
+  <%= paginate @reviews %>
+</div>

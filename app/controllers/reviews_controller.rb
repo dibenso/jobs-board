@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @reviews = current_user.reviews
+    @reviews = current_user.reviews.page(params[:page]).per(12)
   end
 
   def edit

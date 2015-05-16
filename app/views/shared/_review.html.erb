@@ -1,14 +1,18 @@
-
-<p><%= review.user.username %> Wrote:</p>
-<p><%= review.content %></p>
-<b>Pros</b>
-<p><%= review.pros %></p>
-<b>Cons</b>
-<p><%= review.cons %></p>
-<% if user_signed_in? %>
-  <% if current_user.reviews.exists?(review.id) %>
-    <%= link_to 'Edit', edit_review_path(review) %> | 
-    <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% end %>
-<% end %>
-<hr>
+<div class="row">
+  <div class="col-md-4">
+    <%= company_name = Company.find(review.company_id).name %>
+    <p><%= review.user.username %> Wrote a review about <%= link_to company_name, company_path(review.company_id) %>:</p>
+    <p><%= review.content %></p>
+    <b>Pros</b>
+    <p><%= review.pros %></p>
+    <b>Cons</b>
+    <p><%= review.cons %></p>
+    <% if user_signed_in? %>
+      <% if current_user.reviews.exists?(review.id) %>
+        <%= link_to 'Edit review', edit_review_path(review) %> | 
+        <%= link_to 'Delete review', review, method: :delete, data: { confirm: 'Are you sure?', class: 'btn btn-danger' } %>
+      <% end %>
+    <% end %>
+    <hr>
+  </div>
+</div>
