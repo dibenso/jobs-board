@@ -34,7 +34,7 @@
     </div>
     <div class="field">
       <%= f.label :job_category %><br>
-      <%= select_tag 'job[job_category]', options_for_select(@job.job_categories) %>
+      <%= select_tag 'job[job_category]', options_for_select(@job.job_categories), id: 'category' %>
     </div>
     <div class="field">
       <%= f.label :description %><br>

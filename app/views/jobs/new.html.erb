@@ -1,7 +1,36 @@
 <div class="main-content">
   <h1>New Job</h1>
 
-  <%= render 'form' %>
-
-  <%= link_to 'Back', jobs_path %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= render 'form' %>
+    </div>
+    <div class="col-md-4 text-center">
+      <h2>Job Preview</h2>
+      <div id="logo">
+        <%= link_to image_tag(current_employer.company.logo.url(:thumb)), company_path(current_employer.company) %>
+        <p><%= link_to current_employer.company.name, company_path(current_employer.company) %></p>
+        <div id="job_category">
+          <p></p>
+        </div>
+        <div id="location">
+          <p></p>
+        </div>
+        <div id="name">
+          <h3></h3>
+        <div id="wage">
+          <p></p>
+        </div>
+        <div id="steady_wage">
+          <p></p>
+        </div>
+        <div id="time">
+          <p>Full time</p>
+        </div>
+        <div id="description">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
