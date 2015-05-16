@@ -15,6 +15,24 @@ $(document).ready(function() {
   var job_category = document.getElementById('job_category');
   var description = document.getElementById('description');
 
+  name.childNodes[1].innerHTML = job_name.value;
+
+  if(job_max_wage.value === job_min_wage.value && job_max_wage.value !== '')
+    steady_wage.childNodes[1].innerHTML = '$' + job_max_wage.value;
+  else
+    wage.childNodes[1].innerHTML = '$' + job_min_wage.value + ' - ' + '$' + job_max_wage.value;
+
+  job_category.childNodes[1].innerHTML = category.value;
+
+  if(job_time.value === 'Part' || job_time.value === 'Full')
+    time.childNodes[1].innerHTML = job_time.value + ' time';
+  else
+    time.childNodes[1].innerHTML = job_time.value;
+
+  description.childNodes[1].innerHTML = job_description.value;
+
+  location.childNodes[1].innerHTML = 'Located in ' + job_location.value;
+
   job_name.onchange = function() {
     name.childNodes[1].innerHTML = this.value;
   }
@@ -24,8 +42,10 @@ $(document).ready(function() {
       wage.childNodes[1].innerHTML = "";
       steady_wage.childNodes[1].innerHTML = '$' + this.value;
     }
-    else
+    else {
+      steady_wage.childNodes[1].innerHTML = "";
       wage.childNodes[1].innerHTML = '$' + this.value + ' - ' + '$' + job_max_wage.value
+    }
   }
 
   job_max_wage.onchange = function() {
@@ -33,8 +53,10 @@ $(document).ready(function() {
       wage.childNodes[1].innerHTML = "";
       steady_wage.childhood[1].innerHTML = '$' + this.value;
     }
-    else
+    else {
+      steady_wage.childNodes[1].innerHTML = "";
       wage.childNodes[1].innerHTML = '$' + job_min_wage.value + ' - ' + '$' + this.value;
+    }
   }
 
   category.onchange = function() {
