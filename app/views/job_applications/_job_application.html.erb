@@ -1,4 +1,4 @@
-<h3>Company: <%= job_application.job.company.name %></h3>
+<h3>Company: <%= link_to job_application.job.company.name, company_path(job_application.job.company) %></h3>
 <h4>Job: <%= job_application.job.name %></h4>
 <h4>First name: <%= job_application.first_name %></h4>
 <h4>Last name: <%= job_application.last_name %></h4>
