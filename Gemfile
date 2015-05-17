@@ -48,6 +48,12 @@ gem 'searchkick', '~> 0.8.7'
 # For pagination
 gem 'kaminari', '~> 0.16.3'
 
+# Heroku DB
+gem 'pg'
+
+# Heroku static asset serving
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
