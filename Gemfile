@@ -54,6 +54,11 @@ gem 'pg'
 # Heroku static asset serving
 gem 'rails_12factor', group: :production
 
+# Heroku elastic search
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'bonsai-elasticsearch-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
