@@ -1,5 +1,10 @@
 # Jobs board
 
+## screenshots
+![](https://raw.githubusercontent.com/dibenso/jobs-board/master/screenshots/screenshot1.png)   
+
+![](https://raw.githubusercontent.com/dibenso/jobs-board/master/screenshots/screenshot2.png)   
+
 ## routes
 **GET /** -- The root path that displays different kinds of jobs.   
 **POST /jobs** -- If an employer is signed in and belongs to a company, they can create new jobs.   
