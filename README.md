@@ -28,4 +28,6 @@
 **GET /reviews/:id/edit** -- Displays a form for a user to edit their reviews if they are signed in.   
 **PUT /reviews/:id** -- If a user is signed in, this will update their reviews.   
 **DELETE /reviews/:id** -- If a user is signed in, this will destroy their reviews.   
-**GET /reviews** -- If a user is signed in, this page displays all of their reviews.   
+**GET /reviews** -- If a user is signed in, this page displays all of their reviews.
+
+Pull requests are welcome :)
